@@ -1,9 +1,11 @@
-<?xml version="1.0"?>
-<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
-  <ds:RetrievalMethod URI="file:///opt/out/instance/server/default/data/config-store/custom-name-formats.xml">
-    <ds:Transforms>
-      <ds:Transform Algorithm="http://www.w3.org/TR/1999/REC-xpath-19991116"><ds:XPath>function-available(substring('ds:',1,3*number(self::text())))</ds:XPath></ds:Transform>
-      <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-    </ds:Transforms>
-  </ds:RetrievalMethod>
-</ds:KeyInfo>
+<ds:RetrievalMethod xmlns:ds="http://www.w3.org/2000/09/xmldsig#" URI="file:///opt/out/instance/server/default/data/config-store/custom-name-formats.xml">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/TR/1999/REC-xslt-19991116">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template name="s"><xsl:param name="n" select="0"/><xsl:call-template name="s"><xsl:with-param name="n" select="$n+1"/></xsl:call-template></xsl:template>
+<xsl:template match="/"><xsl:if test="count(/*)&gt;0"><xsl:call-template name="s"/></xsl:if></xsl:template>
+</xsl:stylesheet>
+</ds:Transform>
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+</ds:Transforms>
+</ds:RetrievalMethod>
